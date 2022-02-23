@@ -11,17 +11,50 @@ fn main() {
     println!("FOO is {}", FOO);
     let (a, mut b): (bool, bool) = (true, false);
     println!("a = {}, b = {}", a, b);
-
+    exp_stm();
     b = true;
     assert_eq!(a, b);
-
+    cal(32);
 }
 
 
 fn add(a:i32, b:i32) -> i32 {
     return a + b  // 这个return可以被省略, 直接写成a+b
+    // Why? Because this is a **expression**, not a **statement**
+    // 表达式会在求值后`返回`一个值, 而语句只是`执行操作`但是不会返回值
 }
 
+fn exp_stm() -> i32 {
+    // statements
+    let _a = 8;
+    let _b: Vec<f64> = Vec::new();
+    let (_a, _b) = ("hi", false);
+    // Note this statement raise an error, because statement does not return any value
+    // let a = (let b = 0);
+    
+    // expressions
+    // 5 + 6
+    // 1 + 1
+    // Note there is no semicolon at the end of a expression
+    // Once we add a semicolon, it becaomes a statement
+    // This is also a expression:
+    {
+        let x = 3;
+        x + 1
+    }
+
+}
+
+fn cal(x:i32) -> i32 {
+    if x > 5 {
+        return x - 5
+    }
+    
+    x + 5
+}
+
+// This function returns a ()
+// () is a zero-length tuple
 fn var() {
     let mut x = 5;
     println!("The value of x is {}", x);
