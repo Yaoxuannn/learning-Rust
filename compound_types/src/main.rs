@@ -24,6 +24,8 @@ fn main() {
     string_lab();
     tuple_lab();
     struct_lab();
+    enum_lab();
+    array_lab();
 }
 
 fn first_word(s: &String) -> &str {
@@ -150,4 +152,84 @@ fn struct_lab() {
 
 fn build_user(email: String, username: String) -> User {
     User { active: true, username, email, sign_in_count: 1 }
+}
+
+// enum PokerSuit {
+//     Clubs,
+//     Spades,
+//     Diamonds,
+//     Hearts,
+// }
+
+// We can link the value type to the member of enum
+enum PokerSuit {
+    Clubs(u8),
+    Spades(u8),
+    Diamonds(char),
+    Hearts(u8),
+}
+
+fn enum_lab() {
+    let heart = PokerSuit::Hearts(5);
+    let diamond = PokerSuit::Diamonds('A');
+
+    print_suit(heart);
+}
+
+fn print_suit(card: PokerSuit) {
+    // println!("{}", card);
+}
+
+// pub enum Option<T> {
+//     /// No value
+//     #[lang = "None"]
+//     #[stable(feature = "rust1", since = "1.0.0")]
+//     None,
+//     /// Some value `T`
+//     #[lang = "Some"]
+//     #[stable(feature = "rust1", since = "1.0.0")]
+//     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+// }
+
+fn option_lab() {
+    let some_number = Some(5);
+    let some_string = Some("string");
+    // let absent_number = None; // error, we need to declare the type explicitly
+    let absent_number: Option<i32> = None;
+
+    let x = 5;
+    let y = Some(5);
+    // x + y // error, cannot add Option<Integer> to Integer
+    let six = plus_one(y);
+    let none = plus_one(None);
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1)
+    }
+}
+
+
+// array - fixed length - stack
+// vector - dynamicly expandable - heap
+fn array_lab() {
+    let a = [1,2,2,3,4,5];
+    let b: [u8; 3] = [1,2,3];
+    let repeat_3_for_5_times = [3; 5];
+
+    for number in &a {
+        print!("{}:", &number);
+    }
+    println!();
+    for n in a.iter() {
+        print!("{}:", &n);
+    }
+    println!();
+    let mut sum = 0;
+    for i in 0..a.len() {
+        sum += a[i]
+    }
+    println!("a.sum = {}", &sum);
 }
